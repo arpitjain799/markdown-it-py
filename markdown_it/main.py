@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Generator, Iterable, Mapping, MutableMapping
 from contextlib import contextmanager
-from typing import Any
+from typing import Any, overload
 
 from . import helpers, presets  # noqa F401
 from .common import normalize_url, utils  # noqa F401
@@ -18,6 +18,12 @@ try:
     import linkify_it
 except ModuleNotFoundError:
     linkify_it = None
+
+
+try:
+    from typing import Literal
+except ImportError:  # Literal introduced in python 3.8
+    from typing_extensions import Literal  # type: ignore
 
 
 _PRESETS = {
@@ -66,6 +72,26 @@ class MarkdownIt:
 
     def __repr__(self) -> str:
         return f"{self.__class__.__module__}.{self.__class__.__name__}()"
+
+    @overload
+    def __getitem__(self, name: Literal["inline"]) -> ParserInline:
+        ...
+
+    @overload
+    def __getitem__(self, name: Literal["block"]) -> ParserBlock:
+        ...
+
+    @overload
+    def __getitem__(self, name: Literal["core"]) -> ParserCore:
+        ...
+
+    @overload
+    def __getitem__(self, name: Literal["renderer"]) -> RendererProtocol:
+        ...
+
+    @overload
+    def __getitem__(self, name: str) -> Any:
+        ...
 
     def __getitem__(self, name: str) -> Any:
         return {
