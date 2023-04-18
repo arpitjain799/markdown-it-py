@@ -1,3 +1,19 @@
+indent paragraph
+.
+    This is a paragraph,
+    with multiple lines.
+
+    This paragraph
+has variable indents,
+      like this.
+.
+<p>This is a paragraph,
+with multiple lines.</p>
+<p>This paragraph
+has variable indents,
+like this.</p>
+.
+
 indent fence
 .
         ```python
