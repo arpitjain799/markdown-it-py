@@ -14,6 +14,19 @@ has variable indents,
 like this.</p>
 .
 
+indent in HTML
+.
+<div>
+
+    Paragraph
+
+</div>
+.
+<div>
+<p>Paragraph</p>
+</div>
+.
+
 indent fence
 .
         ```python
